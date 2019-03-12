@@ -46,6 +46,10 @@ def main():
     s_single = exponential_smoothing(alpha, initial_number)
     s_double = exponential_smoothing(alpha, s_single)
 
+    s_pre_single = np.zeros(s_single.shape)
+    for i in range(1, len(initial_time_id)):
+        s_pre_single[i] = alpha*initial_number[i-1]+(1-alpha)*s_single[i-1]
+
     a_double = 2*s_single-s_double
     b_double = (alpha/(1-alpha))*(s_single-s_double)
     s_pre_double = np.zeros(s_double.shape)
